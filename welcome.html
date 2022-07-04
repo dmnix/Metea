@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/welcome.css">
+    <meta name="theme-color" content="#003b72">
+    <link rel="icon" href="img/logos/logo-64.png">
+    <title>Průvodce nastavením | Metea</title>
+</head>
+<body>
+    <div id="dialogScreen">
+        <div id="dialogWindow">
+            <h2>Dialog</h2>
+            <p></p>
+            <button id="dialogCloseButton">Zavřít</button>
+        </div>
+    </div>
+    <header>
+        <h1>Metea</h1>
+    </header>
+    <main>
+        <div id="contentBox">
+            <div id="pagesArea">
+                <div id="wizardStep1">
+                    <h2>Vítejte</h2>
+                    <p>Vítejte v aplikaci Metea. Než ji začnete používat, je nutné provést pár nastavení, kterými Vás provede tento průvodce. Všechna nastení bude možné později změnit.</p>
+                </div>
+    
+                <div id="wizardStep2">
+                    <h2>API klíč</h2>
+                    <p>Metea získává data z <a href="https://openweathermap.org/" target="_blank">OpenWeatherMap</a>. K načtení dat potřebuje Váš API klíč. Zadejte jej prosím níže.</p>
+                    <input type="text" placeholder="Váš API klíč">
+                    <p class="emptyInputWarning" id="emptyInputWarningStep2">Vyplňte výše uvedené pole</p>
+                    <p id="showAPIHint" class="apiHint">Co to je API?</p>
+                    <p id="apiHintText" class="apiHint">API je způsob, pomocí něhož poskytovatel služby (v tomto případě OpenWeatherMap) poskytuje svá data tak, aby mohla být implementována do aplikací (ve strojově čitelném formátu). Data od OpenWeatherMap můžete získat pouze, pokud máte svůj API klíč. Jedná se o identifikátor, kterým se prokazujete serveru, že máte na data nárok. OpenWeatherMap poskytuje jak zpoplatněné služby, tak i služby zdarma, které jsou ale pro běžné použití  jednotlivci více než dostatečné. <a href="https://home.openweathermap.org/users/sign_up" target="_blank">Zaregistrovat se a získat nový API klíč</a></p>
+                </div>
+
+                <div id="wizardStep3">
+                    <h2>Umístění</h2>
+                    <p>Zadejte geografické souřadnice místa, pro které si přejete zobrazit informace o počasí. Hodnoty zadávejte ve stupních, desetinná místa oddělujte tečkou.</p>
+                    <div><input type="number" placeholder="Zeměpisná šířka" name="latitude"> ° s. š.
+                    </div>
+                    <div>
+                        <input type="number" placeholder="Zeměpisná délka" name="longtitude"> ° v. d.
+                    </div>
+                    <p class="emptyInputWarning" id="emptyInputWarningStep3">Vyplňte obě výše uvedená pole</p>
+                </div>
+                <div id="wizardStep4">
+                    <h2>Shrnutí</h2>
+                    <p>Přejete si uložit toto nastavení?</p>
+                    <p id="wizardSummary"></p>
+                </div>
+            </div>
+            <div id="buttonsArea">
+                <button id="backButton">← Předchozí</button>
+                <button id="nextButton">Další →</button>
+            </div>
+        </div>
+    </main>
+    <script type="module" src="js/welcome.js"></script>
+</body>
+</html>

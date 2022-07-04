@@ -1,0 +1,24 @@
+/**************************
+        Nastavení
+**************************/
+#settings {
+    display: none;
+}
+.settingsItem {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+.settingsLabel {
+    display: block;
+    font-size: 15px;
+    margin: auto;
+    margin-right: 10px;
+    flex: 1;
+}
+.settingsItemInput {
+    flex: 1;
+}
+#resetSettings:hover {
+    background-color: #ff7575;
+}

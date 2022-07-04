@@ -1,0 +1,33 @@
+{
+    "name": "Metea",
+    "start_url": ".",
+    "theme_color": "#003b72",
+    "background_color": "#003b72",
+    "display": "standalone",
+    "description": "Aplikace Metea zobrazuje aktuální počasí a předpověď z OpenWeatherMap",
+    "icons": [{
+        "src":"img/logos/logo-1920.png",
+        "sizes": "1920x1920",
+        "type": "image/png"
+    },{
+        "src":"img/logos/logo-960.png",
+        "sizes": "960x960",
+        "type": "image/png"
+    },{
+        "src":"img/logos/logo-480.png",
+        "sizes": "480x480",
+        "type": "image/png"
+    },{
+        "src":"img/logos/logo-240.png",
+        "sizes": "240x240",
+        "type": "image/png"
+    },{
+        "src":"img/logos/logo-1920.png",
+        "sizes": "1920x1920",
+        "type": "image/png"
+    },{
+        "src":"img/logos/logo-64.png",
+        "sizes": "64x64",
+        "type": "image/png"
+    }]
+}

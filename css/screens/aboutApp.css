@@ -1,0 +1,15 @@
+/************************
+        O aplikaci
+************************/
+#aboutApp {
+    display: none;
+}
+#license {
+    max-height: 50%;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 0 10px;
+    text-align: left;
+    overflow-y: auto;
+}

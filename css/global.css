@@ -1,0 +1,169 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    font-size: 17px;
+    box-sizing: border-box;
+    z-index: 0;
+}
+a {
+    color: #003b72;
+}
+body {
+    height: 100vh;
+    width: 100vw;
+    scrollbar-color: rgba(255, 255, 255, 0.6) rgba(0, 59, 114, 0.1);
+    scrollbar-width: thin;
+}
+h1,h2,h3,h4,h5,h6 {
+    text-align: center;
+    font-weight: 300;
+}
+button {
+    width: 100px;
+    height: 50px;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+}
+nav {
+    width: 250px;
+    height: 100vh;
+    background-color: #fff;
+    border-right: 1px solid #000;
+    position: absolute;
+    left: -250px;
+    transition: left 0.2s;
+    z-index: 100;
+    
+}
+nav h2 {
+    margin-bottom: 10px;
+}
+#location {
+    text-align: center;
+    margin: 0px 0 10px 0;
+}
+#location img {
+    height: 30px;
+    vertical-align: middle;
+}
+#menuButton {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 100%;
+    border: none;
+    border-radius: 5px;
+    background-image: url(../img/icons/menu.svg);
+    background-color: rgba(0,0,0,0.5);
+    background-size: cover;
+    margin: 10px;
+}
+.navItem {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+    user-select: none;
+}
+.navItem.active {
+    background-color: rgba(0, 59, 114, 0.3);
+    border-right: 6px solid #003b72;
+}
+.navItem:hover {
+    background-color: rgba(0, 59, 114, 0.1);
+}
+.navItem.active:hover {
+    background-color: rgba(0, 59, 114, 0.3);
+}
+header {
+    background-color: #003b72;
+    border-bottom: 2px solid #000;
+    min-height: 10%;
+}
+h1 {
+    font-size: 50px;
+    color: white;
+}
+h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+ }
+h3 {
+     font-size: 25px;
+}
+main {
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url(../img/sky.jpg) no-repeat ;
+    background-size: cover;
+}
+#contentBox {
+    width: 95%;
+    max-width: 900px;
+    max-height: 90%;
+    min-height: 80%;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+}
+#contentBox p{
+    margin: 5px 0px
+}
+.lastUpdate, .lastUpdate span {
+    font-size: 13px;
+}
+.screen {
+    height: 100%;
+}
+input, select {
+    height: 30px;
+    text-align: center;
+    font-size: 15px;
+    margin: 10px 0px;
+    border: none;
+    border-radius: 0;
+    background-color: rgba(0, 59, 114, 0.1);
+    border-bottom: 3px solid #003b72;
+    transition: background-color 0.3s;
+}
+
+input:focus {
+    background-color: rgba(0, 59, 114, 0.3);
+    outline: none;
+}
+#dialogScreen {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+#dialogWindow {
+    background-color: #fff;
+    max-width: 500px;
+    max-height: 500px;
+    overflow: auto;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+}
+#dialogWindow h2 {
+    font-size: 40px;
+}

@@ -1,12 +1,154 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
+    <script src="js/loadSettings.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/main.css">
-    <title>Počasí</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/screens/currentWeather.css">
+    <link rel="stylesheet" href="css/screens/forecast.css">
+    <link rel="stylesheet" href="css/screens/aboutApp.css">
+    <link rel="stylesheet" href="css/screens/settings.css">
+    <meta name="theme-color" content="#003b72">
+    <link rel="icon" href="img/logos/logo-64.png">
+    <link rel="manifest" href="manifest.json">
+    <title>Metea</title>
 </head>
 <body>
-    
+    <div id="dialogScreen">
+        <div id="dialogWindow">
+            <h2>Dialog</h2>
+            <p></p>
+            <button id="dialogCloseButton">Zavřít</button>
+        </div>
+    </div>
+    <nav>
+        <button id="menuButton"></button>
+        <h2>Nabídka</h2>
+        <div id="location">
+            <p><img src="img/icons/location.svg"> <span>---</span></p>
+        </div>
+        <div class="navItem active" id="navCurrentWeather">Aktuální počasí</div>
+        <div class="navItem" id="navForecast">Předpověď</div>
+        <div class="navItem" id="navSettings">Nastavení</div>
+        <div class="navItem" id="navAboutApp">O aplikaci</div>
+    </nav>
+    <header>
+        <h1>Metea</h1>
+    </header>
+    <main>
+        <div id="contentBox">
+
+            <!-- Aktuální počasí-->
+            <div id="currentWeather" class="screen">
+                <h2>Aktuální počasí</h2>
+                <div id="currentWeatherIcon-Text">
+                    <div>
+                        <img id="currentWeatherIcon" src="img/icons/weather/weather-none-available.svg" alt="">
+                    </div>
+                    <div id="currentWeatherText">
+                        <p id="currentWeatherDescription">---</p>
+                        <p id="currentWeatherTemperatue">---</p>
+                    </div>
+                </div>
+                <table id="currentWeatherDetails">
+                    <tr><td>Pocitová teplota</td><td id="currentWeatherPercivedTemp">---</td></tr>
+                    <tr><td>Rychlost větru</td><td id="currentWeatherWindSpeed">---</td></tr>
+                    <tr><td>Srážky (-1h)</td><td id="currentWeatherRain">---</td></tr>
+                    <tr><td>Oblačnost</td><td id="currentWeatherCloudiness">---</td></tr>
+                    <tr><td>Vlhkost vzduchu</td><td id="currentWeatherHumidity">---</td></tr>
+                    <tr><td>Tlak vzduchu</td><td id="currentWeatherPressure">---</td></tr>
+                </table>
+                <p id="currentWeatherlastUpdate" class="lastUpdate">Poslední aktualizace: <span>nikdy</span></p>
+            </div>
+
+            <!-- Předpověď -->
+            <div id="forecast" class="screen">
+                <h2>Předpověď</h2>
+                <div id="forecastDaysList">
+                </div>
+                <div id="forecastSelected">
+                    <div>
+                        <img id="forecastSelectedIcon" src="img/icons/weather/weather-none-available.svg">
+                    </div>
+                    <div id="forecastSelectedDetails">
+                        <p id="forecastSelectedDescription">---</p>
+                        <p id="forecastSelectedTemp">---</p>
+                        <table id="forecastSelectedDetailsTable">
+                            <tr><td>Pocitová teplota</td><td id="forecastSelectedPercivedTemp">---</td></tr>
+                            <tr><td>Rychlost větru</td><td id="forecastSelectedWindSpeed">---</td></tr>
+                            <tr><td>Srážky (-3h)</td><td id="forecastSelectedRain">---</td></tr>
+                            <tr><td>Oblačnost</td><td id="forecastSelectedCloudiness">---</td></tr>
+                            <tr><td>Vlhkost vzduchu</td><td id="forecastSelectedHumidity">---</td></tr>
+                            <tr><td>Tlak vzduchu</td><td id="forecastSelectedPressure">---</td></tr>
+                        </table>
+                        
+                    </div>
+                </div>
+                <p id="forecastlastUpdate" class="lastUpdate">Poslední aktualizace: <span>nikdy</span></p>
+            </div>
+            <!-- Nastavení -->
+            <div id="settings" class="screen">
+                <h2>Nastavení</h2>
+                <div class="settingsItem">
+                    <span class="settingsLabel">API klíč</span>
+                    <div class="settingsItemInput">
+                        <input id="settingsInputAPI" type="text" placeholder="API klíč"></div>
+                    </div>
+                    
+                <div class="settingsItem">
+                    <span class="settingsLabel">Zeměpisná šířka [s. š.]</span>
+                    <div class="settingsItemInput">
+                        <input id="settingsInputLatitude" type="number" placeholder="Z. šířka ve stupních">
+                    </div>
+                    
+                </div>
+                <div class="settingsItem">
+                    <span class="settingsLabel">Zeměpisná délka [v. d.]</span>
+                    <div class="settingsItemInput">
+                        <input id="settingsInputLongtitude" type="number" placeholder="Z. délka ve stupních">
+                    </div>
+                </div>
+                <div class="settingsItem">
+                    <span class="settingsLabel">Interval automatické aktualizace [s]</span>
+                    <div class="settingsItemInput">
+                        <input id="settingsIntervalInput" type="number" min="0" step="30" placeholder="Doba v sekundách">
+                    </div>
+                </div>
+                <button id="saveSettings">Uložit</button><br>
+                <button id="resetSettings">Vymazat nastavení</button>
+            </div>
+
+            <!-- O aplikaci-->
+            <div id="aboutApp" class="screen">
+                <h2>O aplikaci</h2>
+                <p>Díky této aplikaci nikdy neztratíte přehled o počasí. Data získává z hojně využívaného <a href="https://openweathermap.org/" target="_blank">OpenWeatherMap</a>. Aplikace je napsaná v HTML, CSS a JavaScritpu a běží lokálně ve Vašem prohlížeči.</p>
+                <p>
+                    Verze: 1.0<br>
+                    Autor: Dominik Nikolov
+                </p>
+                <h3>Licence</h3>
+                <div id="license">
+                    <p>Tato aplikace používá obrázky a knihovny třetích stran, na které se vztahují licence jejich autorů.</p>
+                    <h4 style="text-align: left;">Pozadí</h4>
+                    <p>
+                        Texel - De Hors - Sky above the North Sea<br>
+                        Autor: Txllxt TxllxT<br>
+                        Licence: <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en" target="_blank">CC BY-SA 4.0</a><br>
+                        Úpravy: Sníženo rozlišení z původních 6048 x 4032 px na 4838 x 3225 px.<br>
+                        Zdroj: <a href="https://commons.wikimedia.org/wiki/File:Texel_-_De_Hors_-_Sky_above_the_North_Sea.jpg" target="_blank">Wikimedia Commons</a>
+                    </p>
+                    <h4 style="text-align: left;">Ikony</h4>
+                    <p>
+                        KDE Breeze icons<br>
+                        Licence: <a href="https://invent.kde.org/frameworks/breeze-icons/-/raw/master/COPYING.LIB" target="_blank">LGPL 2.1 (GNU Lesser General Public License 2.1)</a><br>
+                        Zdroj: <a href="https://invent.kde.org/frameworks/breeze-icons" target="_blank">GitLab</a>
+                    </p>
+                </div>
+                </p>
+            </div>
+        </div>
+    </main>
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>

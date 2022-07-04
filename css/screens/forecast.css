@@ -1,0 +1,65 @@
+/*************************
+        Předpověď 
+**************************/
+#forecastDaysList {
+        overflow-x: scroll;
+        display: flex;
+        width: fit-content;
+        max-width: 100%;
+        margin: auto;
+}
+.forecastDaysListItem {
+        padding: 0px 10px;
+        border-bottom: 6px solid transparent;
+}
+.forecastDaysListItem p {
+        font-size: 15px;
+}
+.forecastDaysListItem.active {
+        background-color: rgba(0, 59, 114, 0.3);
+        border-bottom: 6px solid #003b72;
+}
+.forecastDaysListItem:hover {
+        cursor: pointer;
+        background-color: rgba(0, 59, 114, 0.1);
+}
+.forecastDaysListItem.active:hover {
+        background-color: rgba(0, 59, 114, 0.3);
+}
+#forecast {
+        display: none;
+}
+#forecastSelected {
+        display: flex;
+}
+#forecastSelected div {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+}
+#forecastSelectedIcon {
+        width: 70%;
+}
+#forecastSelectedDetailsTable{
+        width: 90%;
+        text-align: left;
+        margin: 10px auto;
+        border-collapse: collapse;
+}
+#forecastSelectedDetailsTable td {
+        padding: 5px;
+        width: 50%;
+}
+#forecastSelectedDetailsTable td:nth-child(2){
+        text-align: center;
+}
+#forecastSelectedDescription, #forecastSelectedTemp {
+        font-size: 30px;
+        font-weight: 300;
+        text-align: center;
+}
+#forecastSelectedDescription:first-letter {
+        text-transform: uppercase;
+}

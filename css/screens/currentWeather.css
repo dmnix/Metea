@@ -1,0 +1,42 @@
+/********************
+    Aktuální počasí
+*********************/
+#currentWeather {
+    display: block;
+}
+#currentWeatherIcon-Text{
+    display: flex;
+    height: 25vh;
+}
+#currentWeatherIcon-Text div {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#currentWeatherIcon {
+    height: 90%;
+}
+#currentWeatherText {
+    flex-direction: column;
+}
+#currentWeatherText p{
+    font-size: 30px;
+    font-weight: 300;
+    text-align: center;
+}
+#currentWeatherText p:first-letter {
+    text-transform: uppercase;
+}
+#currentWeatherDetails {
+    width: 100%;
+    margin: 0 auto;
+}
+
+#currentWeatherDetails td {
+    width: 50%;
+    padding: 5px;
+}
+button:hover {
+    cursor: pointer;
+}
