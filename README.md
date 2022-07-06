@@ -8,6 +8,8 @@ Metea je aplikace zobrazující informace o počasí z OpenWeatherMap.
 - Zobrazení informací o současném počasí
 - Předpověď počasí na následujících 5 dní po třech hodinách
 - Nastavitelný interval, po jehož uplynutí se počasí automaticky zaktualizuje
+- Umí se přizpůsobit velikosti mobilu (je responzivní)
+- Lze použít jako PWA (progresivní webovou aplikaci)
 
 ## Co je potřeba ještě dodělat?
 
