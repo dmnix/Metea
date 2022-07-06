@@ -174,12 +174,14 @@ function toggleMenu(action){
     switch(action){
         case "toOpen": {
             menu.style.left = "0px";
+            menu.style.boxShadow = "2px 0px 20px #000";
             menuButton.style.backgroundImage = "url(../img/icons/close-menu.svg)";
             menuOpen = true;
             break;
         };
         case "toClose": {
             menu.style.left = "-250px";
+            menu.style.boxShadow = "none";
             menuButton.style.backgroundImage = "url(../img/icons/menu.svg)";
             menuOpen = false;
             break;

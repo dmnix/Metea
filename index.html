@@ -24,14 +24,20 @@
     </div>
     <nav>
         <button id="menuButton"></button>
-        <h2>Nabídka</h2>
-        <div id="location">
-            <p><img src="img/icons/location.svg"> <span>---</span></p>
+        <div id="navContent">
+            <div id="menuHeader">
+                <img src="img/logos/logo.svg">
+                <h2>Nabídka</h2>
+            </div>
+            <div id="location">
+                <p><img src="img/icons/location.svg"> <span>---</span></p>
+            </div>
+            <div class="navItem active" id="navCurrentWeather">Aktuální počasí</div>
+            <div class="navItem" id="navForecast">Předpověď</div>
+            <div class="navItem" id="navSettings">Nastavení</div>
+            <div class="navItem" id="navAboutApp">O aplikaci</div>
         </div>
-        <div class="navItem active" id="navCurrentWeather">Aktuální počasí</div>
-        <div class="navItem" id="navForecast">Předpověď</div>
-        <div class="navItem" id="navSettings">Nastavení</div>
-        <div class="navItem" id="navAboutApp">O aplikaci</div>
+        
     </nav>
     <header>
         <h1>Metea</h1>
@@ -122,14 +128,15 @@
             <!-- O aplikaci-->
             <div id="aboutApp" class="screen">
                 <h2>O aplikaci</h2>
-                <p>Díky této aplikaci nikdy neztratíte přehled o počasí. Data získává z hojně využívaného <a href="https://openweathermap.org/" target="_blank">OpenWeatherMap</a>. Aplikace je napsaná v HTML, CSS a JavaScritpu a běží lokálně ve Vašem prohlížeči.</p>
+                <p>Díky aplikaci Metea nikdy neztratíte přehled o počasí. Data získává z hojně využívaného <a href="https://openweathermap.org/" target="_blank">OpenWeatherMap</a>. Aplikace je napsaná v HTML, CSS a JavaScritpu a běží lokálně ve Vašem prohlížeči.</p>
                 <p>
-                    Verze: 1.0<br>
+                    Verze: 1.0.1<br>
                     Autor: Dominik Nikolov
                 </p>
                 <h3>Licence</h3>
                 <div id="license">
-                    <p>Tato aplikace používá obrázky a knihovny třetích stran, na které se vztahují licence jejich autorů.</p>
+                    <p>Metea je svobodný a open source software pod licencí GNU GPLv3. Zdrojové kódy jsou k dispozici na <a href="https://github.com/dmnix/Metea" target="_blank">GitHubu</a>.</p>
+                    <p>V této aplikaci byly použity tyto obrázky na knihovny:</p>
                     <h4 style="text-align: left;">Pozadí</h4>
                     <p>
                         Texel - De Hors - Sky above the North Sea<br>
