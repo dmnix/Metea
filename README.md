@@ -14,7 +14,6 @@ Metea je aplikace zobrazující informace o počasí z OpenWeatherMap.
 ## Co je potřeba ještě dodělat?
 
 - Přeložit Meteu do i do jiných jazyků
-- Přidat možnost vyhledání místa (nyní lze přidat místo pouze podle souřadnic)
 
 ## Požadavky na spuštění
 
