@@ -1,5 +1,7 @@
 import resolveDayName from "./daysResolver.js";
 import showDialog from "./dialog.js";
+import searchLocation from "./searchLocation.js";
+import { addLocation } from "./searchLocation.js";
 const menu = document.querySelector("nav");
 const menuButton = document.querySelector("#menuButton");
 const navItem = document.querySelectorAll(".navItem");
@@ -102,15 +104,62 @@ const screens = {
     settings: {
         screen: document.querySelector("#settings"),
         apiInput: document.querySelector("#settingsInputAPI"),
-        latitudeInput: document.querySelector("#settingsInputLatitude"),
-        longtitudeInput: document.querySelector("#settingsInputLongtitude"),
         updateIntervalInput: document.querySelector("#settingsIntervalInput"),
+        manageLocationsButton: document.querySelector("#manageLocationsButton"),
         saveButton: document.querySelector("#saveSettings"),
         resetButton: document.querySelector("#resetSettings"),
+        manageLocations: {
+            screensSelection: {
+                removeLocations: document.querySelector("#locationScreenSelectionRemove"),
+                searchLocations: document.querySelector("#loacationScreenSelectionSearch"),
+                setCoordinates: document.querySelector("#loacationScreenSelectionCoordinates"),
+            },
+            screens: {
+                removeLocations: document.querySelector("#removeLocationsScreen"),
+                searchLocations: document.querySelector("#searchLocationScreen"),
+                setCoordinates: document.querySelector("#setCoordinatesScreen"),
+            },
+            window: document.querySelector("#manageLocations"),
+            searchForm: document.querySelector("#searchLocationScreen form"),
+            resultsArea: document.querySelector("#searchResults"),
+            resultsResponse: null,
+            resultsItems: null,
+            saveButton: document.querySelector("#manageLocationsSave"),
+            coordinatesForm: document.querySelector("#setCoordiantesForm"),
+            printSavedLocations: function(){
+                this.screens.removeLocations.innerHTML = "<p>Kliknutím místo odstraníte.</p>";
+                if(settings.location.length == 0){
+                    this.screens.removeLocations.innerHTML = "<p>Nejsou uložena žádná místa.</p>";
+                }
+                for(let i = 0; i < settings.location.length; i++){
+                    let box = document.createElement("div");
+                    let locationName = document.createElement("span");
+                    let coordinates = document.createElement("span");
+
+                    box.classList.add("locationBox");
+                    box.id = `item${i}`;
+                    box.classList.add("savedLocation");
+                    locationName.classList.add("locationName");
+                    coordinates.classList.add("locationCoordinates")
+
+                    locationName.textContent = settings.location[i].locationName;
+                    coordinates.textContent = `${settings.location[i].latitude} s. š., ${settings.location[i].longtitude} v. d.`;
+
+                    box.appendChild(locationName);
+                    box.appendChild(coordinates);
+                    this.screens.removeLocations.appendChild(box);
+
+                    
+                    box.addEventListener("click", ()=>{
+                        let index = box.id.slice(4);
+                        settings.location.splice(index, 1);
+                        this.printSavedLocations();
+                    });
+                }
+            },
+        },
         loadSettings: function(){
             this.apiInput.value = settings.apiKey;
-            this.latitudeInput.value = settings.latitude;
-            this.longtitudeInput.value = settings.longtitude;
             this.updateIntervalInput.value = settings.updateInterval/1000;
         },
     },
@@ -118,16 +167,54 @@ const screens = {
         screen: document.querySelector("#aboutApp"),
     }
 }
-const locationText =  document.querySelector("#location span");
+const navSelectedLocationDiv = document.querySelector("#navSelectedLocation");
+const navSelectedLocationText =  document.querySelector("#navSelectedLocation span");
+const navLocationsList = document.querySelector("#navLocationsList");
+let navLocationsListOpen = false;
 let menuOpen = false;
 let weatherData = {
     currentWeather: null,
     forecast: null,
 };
 
-
-
 // Nabídka
+function setNavSelectedLocationText(){
+    let navLocationText;
+    if(settings.location.length == 0){
+        navLocationText = "Nenastaveno žádné místo"
+    }else{
+        if(settings.location[0].locationName.length > 28){
+            navLocationText = `${settings.location[0].locationName.slice(0,25)}...`
+        }else{
+            navLocationText = settings.location[0].locationName;
+        }
+    }
+    navSelectedLocationText.textContent = navLocationText;
+};
+function writeSavedLocationsToList(){
+    if(settings.location.length <= 1){
+        navLocationsList.innerHTML = `<p class="navLocationListItem">Žádná další místa nejsou uložena</p>`;
+        return;
+    }
+    for(let i = 1; i < settings.location.length; i++){
+        let listItem = document.createElement("div");
+        listItem.classList.add("navLocationListItem");
+        listItem.id = `locationListItem${i}`;
+        listItem.textContent = settings.location[i].locationName;
+        navLocationsList.appendChild(listItem);
+
+        listItem.addEventListener("click", ()=>{
+            let clickedLocation = settings.location[i];
+            settings.location.splice(i, 1);
+            settings.location.unshift(clickedLocation);
+            localStorage.setItem("settings", JSON.stringify(settings));
+            location.reload();
+        })
+    };  
+};
+setNavSelectedLocationText();
+writeSavedLocationsToList();
+
 menuButton.addEventListener("click", ()=>{
     switch(menuOpen){
         case true: {
@@ -187,11 +274,24 @@ function toggleMenu(action){
             break;
         }
     }
-}
-
+};
+navSelectedLocationDiv.addEventListener("click", ()=>{
+    switch(navLocationsListOpen){
+        case true: {
+            navLocationsList.style.display = "none";
+            navLocationsListOpen = false;
+            break;
+        };
+        case false: {
+            navLocationsList.style.display = "block";
+            navLocationsListOpen = true;
+            break;
+        }
+    }
+})
 // Stažení informací o počasí
 loadAllWeatherData();
-setInterval(loadAllWeatherData,settings.updateInterval);
+//setInterval(loadAllWeatherData,settings.updateInterval);
 function loadAllWeatherData(){
     loadWeatherData("currentWeather");
     loadWeatherData("forecast");
@@ -200,13 +300,17 @@ function loadAllWeatherData(){
 
 function loadWeatherData(type){
     let loadWeather = new XMLHttpRequest;
+    if(settings.location.length == 0){
+        showDialog("Nejsou nastavena žádná místa", "Pro zobrazení informací o počasí nejprve přidejte nějaké místo v nastavení.");
+        return;
+    }
     switch(type){
         case "currentWeather": {
-            loadWeather.open("GET",`https://api.openweathermap.org/data/2.5/weather?lat=${settings.latitude}&lon=${settings.longtitude}&lang=cz&units=metric&appid=${settings.apiKey}`, true);
+            loadWeather.open("GET",`https://api.openweathermap.org/data/2.5/weather?lat=${settings.location[0].latitude}&lon=${settings.location[0].longtitude}&lang=cz&units=metric&appid=${settings.apiKey}`, true);
             break;
         };
         case "forecast": {
-            loadWeather.open("GET",`https://api.openweathermap.org/data/2.5/forecast?lat=${settings.latitude}&lon=${settings.longtitude}&lang=cz&units=metric&appid=${settings.apiKey}`, true);
+            loadWeather.open("GET",`https://api.openweathermap.org/data/2.5/forecast?lat=${settings.location[0].latitude}&lon=${settings.location[0].longtitude}&lang=cz&units=metric&appid=${settings.apiKey}`, true);
             break;
         };
         default: return null;
@@ -216,14 +320,12 @@ function loadWeatherData(type){
         if(this.status == 200){
             weatherData[type] = JSON.parse(this.response);
             switch(type){
-                case "currentWeather":{
+                case "currentWeather": {
                     screens.currentWeather.updateScreen();
-                    locationText.textContent = `${weatherData.currentWeather.name}, ${weatherData.currentWeather.sys.country}`;
                     break;
                 };
                 case "forecast": {
                     screens.forecast.updateDaysList();
-                    locationText.textContent = `${weatherData.forecast.city.name}, ${weatherData.forecast.city.country}`;
                     break;
                 }
             }
@@ -241,15 +343,76 @@ function generateLastUpdateText(){
 }
 
 // Nastavení
+screens.settings.manageLocationsButton.addEventListener("click", ()=>{
+    screens.settings.manageLocations.window.style.display = "flex";
+})
 screens.settings.resetButton.addEventListener("click", ()=>{
     localStorage.removeItem("settings");
     showDialog("Nastavení vymazáno", "Všechna nastavení z Vašeho prohlížeče byla vymazána a konfigurace je nyní uložena jen v dočasné paměti. Při dalším obnovení stránky se zobrazí uvítací průvodce. Pokud jste vymazali nastavení omylem, je možné tento krok zvrátit kliknutím na tlačítko <i>Uložit</i>.");
 })
 screens.settings.saveButton.addEventListener("click", ()=>{
     settings.apiKey = screens.settings.apiInput.value;
-    settings.latitude = screens.settings.latitudeInput.value;
-    settings.longtitude = screens.settings.longtitudeInput.value;
     settings.updateInterval = screens.settings.updateIntervalInput.value*1000;
     localStorage.setItem("settings", JSON.stringify(settings));
     showDialog("Nastavení uloženo", "Nastavení bylo uloženo. Pokud se některé změny neprojeví ihned, můžete zkusit obnovit stránku.")
+})
+
+// Správa míst
+// Odebírání míst
+screens.settings.manageLocations.printSavedLocations();
+// Přepínání stránek
+Object.keys(screens.settings.manageLocations.screensSelection).forEach((property)=>{
+    screens.settings.manageLocations.screensSelection[property].addEventListener("click", ()=>{
+
+        // Odstranit třídu "active" ze všech položek
+        Object.keys(screens.settings.manageLocations.screensSelection).forEach((property2)=>{
+            screens.settings.manageLocations.screensSelection[property2].classList.remove("active");
+        });
+
+        // Přidat třídu "active" na kliknutou položku
+        screens.settings.manageLocations.screensSelection[property].classList.add("active");
+
+        // Nechat zmizet všechny stránky
+        Object.keys(screens.settings.manageLocations.screens).forEach((property3)=>{
+            screens.settings.manageLocations.screens[property3].style.display = "none";
+        })
+
+        // Zobrazit odpovídající stránku
+        screens.settings.manageLocations.screens[property].style.display = "block"
+        if(property == "removeLocations"){
+            screens.settings.manageLocations.printSavedLocations();
+        }
+    });
+});
+// Hledání 
+screens.settings.manageLocations.searchForm.addEventListener("submit", (e)=>{
+    e.preventDefault();
+    searchLocation(e.target.searchInput.value, screens.settings.manageLocations.resultsResponse, screens.settings.manageLocations.resultsArea, screens.settings.manageLocations.resultsItems, "add", settings);
+})
+// Zadání podle souřadnic
+screens.settings.manageLocations.coordinatesForm.addEventListener("submit", (e)=>{
+    e.preventDefault();
+
+    for(let i = 0; i <= e.target.elements.length-2; i++){
+        if(e.target[i].value == ""){
+            showDialog("Neúplné údaje", "Prosím vyplňte všechny údaje o místě, které chcete přidat.");
+            break;
+        }
+        if(i == e.target.elements.length-2){
+            if((e.target.latitude.value >= -90 && e.target.latitude.value <= 90) && (e.target.longtitude.value >= -180 && e.target.longtitude.value <= 180)){
+                settings.location.push(new addLocation(e.target.locationName.value, e.target.latitude.value, e.target.longtitude.value));
+                for(let k = 0; k <= e.target.elements.length-2; k++){
+                    e.target[k].value = "";
+                };
+                console.log(settings.location)
+            }else{
+                showDialog("Neplatné souřadnice", "Zadali jste neplatné souřadnice. Zeměpisná šířka může nabývat hodnot z intervalu <-90;90> a délka z intervalu <-180;180>");
+            }
+        };
+    };
+});
+// Uložení změn do localStorage
+screens.settings.manageLocations.saveButton.addEventListener("click", ()=>{
+    localStorage.setItem("settings", JSON.stringify(settings));
+    location.reload();
 })

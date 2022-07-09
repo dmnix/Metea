@@ -20,13 +20,36 @@ h1,h2,h3,h4,h5,h6 {
     text-align: center;
     font-weight: 300;
 }
-button {
+input, select {
+    height: 30px;
+    text-align: center;
+    font-size: 15px;
+    margin: 10px 0px;
+    border: none;
+    border-radius: 0;
+    background-color: rgba(0, 59, 114, 0.1);
+    border-bottom: 3px solid #003b72;
+    transition: background-color 0.3s;
+}
+
+input:focus {
+    background-color: rgba(0, 59, 114, 0.3);
+    outline: none;
+}
+button, input[type=submit] {
     width: 100px;
-    height: 50px;
+    height: 40px;
     font-size: 15px;
     border: none;
-    border-radius: 5px;
+    border-radius: 2px;
     margin: 10px;
+    background-color: rgba(0, 59, 114, 0.1);
+    border: 1px solid #003b72;
+    cursor: pointer;
+    transition: background-color 0s;
+}
+button:hover, input[type=submit]:hover{
+    background-color: rgba(0, 59, 114, 0.3);
 }
 nav {
     width: 250px;
@@ -58,13 +81,34 @@ nav h2 {
     height: 50%;
 }
 
-#location {
+#navSelectedLocation {
     text-align: center;
     margin: 10px 0;
+    cursor: pointer;
 }
-#location img {
+#navSelectedLocation span{
+    font-size: 15px;
+}
+#navSelectedLocation img {
     height: 30px;
     vertical-align: middle;
+}
+#navLocationsList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10px;
+    display: none;
+}
+.navLocationListItem {
+    display: block;
+    font-size: 15px;
+    text-align: center;
+    padding: 5px 0;
+    cursor: pointer;
+}
+.navLocationListItem:hover {
+    background-color: rgba(0, 59, 114, 0.1);
 }
 #menuButton {
     width: 50px;
@@ -144,22 +188,7 @@ main {
 .screen {
     height: 100%;
 }
-input, select {
-    height: 30px;
-    text-align: center;
-    font-size: 15px;
-    margin: 10px 0px;
-    border: none;
-    border-radius: 0;
-    background-color: rgba(0, 59, 114, 0.1);
-    border-bottom: 3px solid #003b72;
-    transition: background-color 0.3s;
-}
 
-input:focus {
-    background-color: rgba(0, 59, 114, 0.3);
-    outline: none;
-}
 #dialogScreen {
     position: absolute;
     width: 100vw;

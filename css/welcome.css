@@ -14,6 +14,7 @@ h2 {
     display: none;
 }
 #pagesArea {
+    width: 100%;
     flex: 2;
 }
 #buttonsArea {
@@ -55,6 +56,69 @@ h2 {
 }
 #apiHintText {
     display: none;
+}
+
+/*
+    Umístění
+*/
+#setCoordinates {
+    display: none;
+}
+#setCoordinates * {
+    display: block;
+    margin: 5px auto;
+}
+#setCoordinates span {
+    font-size: 15px;
+    margin-top: 20px;
+}
+#searchResults {
+    width: 80%;
+    max-width: 400px;
+    margin: 0 auto;
+    overflow-y: auto;
+}
+.resultElement {
+    margin: 5px 0;
+    background-color: rgba(255,255,255,0.4);
+    border-right: 6px solid transparent;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.resultElement.active {
+    border-right: 6px solid #003b72;
+}
+.resultElement:hover {
+    background-color: rgba(0, 59, 114, 0.1);
+}
+.resultElement span {
+    display: block;
+}
+.resultCity {
+    text-align: left;
+    font-size: 20px;
+}
+.resultCoordinates {
+    text-align: right;
+    font-size: 13px;
+    font-style: italic;
+    color: #757575
+}
+#locationInputMethod {
+    width: 100%;
+    display: flex;   
+}
+#locationInputMethod div {
+    flex: 1;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 20px;
+}
+#locationInputMethod div:hover {
+    background-color: rgba(0, 59, 114, 0.1);
+}
+#locationInputMethod div.active {
+    border-bottom: 3px solid #003b72;
 }
 
 @keyframes contentBoxAppear{

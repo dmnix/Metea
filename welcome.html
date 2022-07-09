@@ -32,20 +32,37 @@
                     <h2>API klíč</h2>
                     <p>Metea získává data z <a href="https://openweathermap.org/" target="_blank">OpenWeatherMap</a>. K načtení dat potřebuje Váš API klíč. Zadejte jej prosím níže.</p>
                     <input type="text" placeholder="Váš API klíč">
-                    <p class="emptyInputWarning" id="emptyInputWarningStep2">Vyplňte výše uvedené pole</p>
                     <p id="showAPIHint" class="apiHint">Co to je API?</p>
                     <p id="apiHintText" class="apiHint">API je způsob, pomocí něhož poskytovatel služby (v tomto případě OpenWeatherMap) poskytuje svá data tak, aby mohla být implementována do aplikací (ve strojově čitelném formátu). Data od OpenWeatherMap můžete získat pouze, pokud máte svůj API klíč. Jedná se o identifikátor, kterým se prokazujete serveru, že máte na data nárok. OpenWeatherMap poskytuje jak zpoplatněné služby, tak i služby zdarma, které jsou ale pro běžné použití  jednotlivci více než dostatečné. <a href="https://home.openweathermap.org/users/sign_up" target="_blank">Zaregistrovat se a získat nový API klíč</a></p>
                 </div>
 
                 <div id="wizardStep3">
                     <h2>Umístění</h2>
-                    <p>Zadejte geografické souřadnice místa, pro které si přejete zobrazit informace o počasí. Hodnoty zadávejte ve stupních, desetinná místa oddělujte tečkou.</p>
-                    <div><input type="number" placeholder="Zeměpisná šířka" name="latitude"> ° s. š.
+                    <div id="locationInputMethod">
+                        <div id="loacationInputMethodSearch" class="active">
+                            Vyhledat
+                        </div>
+                        <div id="loacationInputMethodCoordinates" >
+                            Zadat souřadnice
+                        </div>
                     </div>
-                    <div>
-                        <input type="number" placeholder="Zeměpisná délka" name="longtitude"> ° v. d.
+                    <div id="searchLocation">
+                        <form>
+                            <input type="text" placeholder="Vyhledat město/obec" name="searchInput">
+                            <input type="submit" value="Vyhledat">
+                        </form>
+                        <div id="searchResults">
+                        </div>
                     </div>
-                    <p class="emptyInputWarning" id="emptyInputWarningStep3">Vyplňte obě výše uvedená pole</p>
+                    <div id="setCoordinates">
+                        <span>Název místa</span>
+                        <input type="text" placeholder="Praha" name="locationName">
+                        <span>Zeměpisná šířka [s. š.]</span>
+                        <input type="number" placeholder="50.0835494" name="latitude">
+                        <span>Zeměpisná délka [v. d.]</span>
+                        <input type="number" placeholder="14.4341414" name="longtitude">
+                    </div>
+                    
                 </div>
                 <div id="wizardStep4">
                     <h2>Shrnutí</h2>

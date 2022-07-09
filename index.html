@@ -29,8 +29,11 @@
                 <img src="img/logos/logo.svg">
                 <h2>Nabídka</h2>
             </div>
-            <div id="location">
+            <div id="navSelectedLocation">
                 <p><img src="img/icons/location.svg"> <span>---</span></p>
+            </div>
+            <div id="navLocationsList">
+
             </div>
             <div class="navItem active" id="navCurrentWeather">Aktuální počasí</div>
             <div class="navItem" id="navForecast">Předpověď</div>
@@ -95,36 +98,63 @@
             </div>
             <!-- Nastavení -->
             <div id="settings" class="screen">
+                <!-- Dialog pro správu míst-->
+                <div id="manageLocations">
+                    <div id="manageLocationsWindow">
+                        <h2>Spravovat místa</h2>
+                        <div id="manageLocationsScreenSelection">
+                            <div id="locationScreenSelectionRemove" class="active">
+                                Odebrat lokace
+                            </div>
+                            <div id="loacationScreenSelectionSearch">
+                                Vyhledat
+                            </div>
+                            <div id="loacationScreenSelectionCoordinates" >
+                                Zadat souřadnice
+                            </div>
+                        </div>
+                        <div id="removeLocationsScreen" class="manageLocationsScreen">
+                        </div>
+                        <div id="searchLocationScreen" class="manageLocationsScreen">
+                            <form>
+                                <input type="text" placeholder="Vyhledat město/obec" name="searchInput">
+                                <input type="submit" value="Vyhledat">
+                            </form>
+                            <div id="searchResults">
+                            </div>
+                        </div>
+                        <div id="setCoordinatesScreen" class="manageLocationsScreen">
+                            <form id="setCoordiantesForm">
+                                <span>Název místa</span><br>
+                                <input type="text" placeholder="Praha" name="locationName"><br>
+                                <span>Zeměpisná šířka [s. š.]</span><br>
+                                <input type="number" placeholder="50.0835494" name="latitude"><br>
+                                <span>Zeměpisná délka [v. d.]</span><br>
+                                <input type="number" placeholder="14.4341414" name="longtitude"><br>
+                                <input type="submit" value="Přidat">
+                            </form>
+                        </div>
+                        <button id="manageLocationsSave">Uložit a zavřít</button>
+                    </div>
+                </div>
+
                 <h2>Nastavení</h2>
                 <div class="settingsItem">
                     <span class="settingsLabel">API klíč</span>
                     <div class="settingsItemInput">
                         <input id="settingsInputAPI" type="text" placeholder="API klíč"></div>
                     </div>
-                    
-                <div class="settingsItem">
-                    <span class="settingsLabel">Zeměpisná šířka [s. š.]</span>
-                    <div class="settingsItemInput">
-                        <input id="settingsInputLatitude" type="number" placeholder="Z. šířka ve stupních">
-                    </div>
-                    
-                </div>
-                <div class="settingsItem">
-                    <span class="settingsLabel">Zeměpisná délka [v. d.]</span>
-                    <div class="settingsItemInput">
-                        <input id="settingsInputLongtitude" type="number" placeholder="Z. délka ve stupních">
-                    </div>
-                </div>
                 <div class="settingsItem">
                     <span class="settingsLabel">Interval automatické aktualizace [s]</span>
                     <div class="settingsItemInput">
                         <input id="settingsIntervalInput" type="number" min="0" step="30" placeholder="Doba v sekundách">
                     </div>
                 </div>
+
+                <button id="manageLocationsButton">Správa míst</button><br>
                 <button id="saveSettings">Uložit</button><br>
                 <button id="resetSettings">Vymazat nastavení</button>
             </div>
-
             <!-- O aplikaci-->
             <div id="aboutApp" class="screen">
                 <h2>O aplikaci</h2>

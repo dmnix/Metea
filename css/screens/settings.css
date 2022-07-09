@@ -22,3 +22,108 @@
 #resetSettings:hover {
     background-color: #ff7575;
 }
+
+/* Správa míst */
+#manageLocations {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.2);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+}
+
+#manageLocationsWindow {
+    background-color: #fff;
+    width: 90%;
+    height: 80%;
+    overflow-y: auto;
+    border-radius: 5px;
+    margin: 10px;
+}
+#manageLocationsWindow h2 {
+    font-size: 40px;
+}
+#manageLocationsScreenSelection{
+width: 100%;
+display: flex;   
+}
+#manageLocationsScreenSelection div {
+flex: 1;
+padding: 5px;
+cursor: pointer;
+font-size: 20px;
+}
+#manageLocationsScreenSelection div:hover {
+    background-color: rgba(0, 59, 114, 0.1);
+}
+#manageLocationsScreenSelection div.active {
+    border-bottom: 3px solid #003b72;
+}
+#searchLocationScreen {
+    display: none;
+}
+#setCoordinatesScreen {
+    display: none;
+}
+.manageLocationsScreen {
+    padding: 10px;
+    display: block;
+}
+.locationBox {
+    margin: 5px 0;
+    background-color: rgba(255,255,255,0.4);
+    border-right: 6px solid transparent;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.locationBox.active {
+    border-right: 6px solid #003b72;
+}
+.locationBox:hover {
+    background-color: rgba(0, 59, 114, 0.1);
+}
+.locationBox span {
+    display: block;
+}
+.locationName {
+    text-align: left;
+    font-size: 20px;
+}
+.locationCoordinates {
+    text-align: right;
+    font-size: 13px;
+    font-style: italic;
+    color: #757575
+}
+
+.resultElement {
+    margin: 5px 0;
+    background-color: rgba(255,255,255,0.4);
+    border-right: 6px solid transparent;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.resultElement.active {
+    border-right: 6px solid #003b72;
+}
+.resultElement:hover {
+    background-color: rgba(0, 59, 114, 0.1);
+}
+.resultElement span {
+    display: block;
+}
+.resultCity {
+    text-align: left;
+    font-size: 20px;
+}
+.resultCoordinates {
+    text-align: right;
+    font-size: 13px;
+    font-style: italic;
+    color: #757575
+}
