@@ -291,7 +291,7 @@ navSelectedLocationDiv.addEventListener("click", ()=>{
 })
 // Stažení informací o počasí
 loadAllWeatherData();
-//setInterval(loadAllWeatherData,settings.updateInterval);
+setInterval(loadAllWeatherData,settings.updateInterval);
 function loadAllWeatherData(){
     loadWeatherData("currentWeather");
     loadWeatherData("forecast");
