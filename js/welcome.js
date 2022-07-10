@@ -1,5 +1,6 @@
 import showDialog from "./dialog.js";
 import searchLocation from "./searchLocation.js";
+import { addLocation } from "./searchLocation.js";
 const nextButton = document.querySelector("#nextButton");
 const backButton = document.querySelector("#backButton");
 let step = 1;

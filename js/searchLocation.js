@@ -1,3 +1,4 @@
+import showDialog from "./dialog.js";
 export let addLocation = function(locationName, latitude, longitude){
     this.locationName = locationName;
     this.latitude = latitude;
