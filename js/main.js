@@ -143,7 +143,7 @@ const screens = {
                     coordinates.classList.add("locationCoordinates")
 
                     locationName.textContent = settings.location[i].locationName;
-                    coordinates.textContent = `${settings.location[i].latitude} s. š., ${settings.location[i].longtitude} v. d.`;
+                    coordinates.textContent = `${settings.location[i].latitude} s. š., ${settings.location[i].longitude} v. d.`;
 
                     box.appendChild(locationName);
                     box.appendChild(coordinates);
@@ -306,11 +306,11 @@ function loadWeatherData(type){
     }
     switch(type){
         case "currentWeather": {
-            loadWeather.open("GET",`https://api.openweathermap.org/data/2.5/weather?lat=${settings.location[0].latitude}&lon=${settings.location[0].longtitude}&lang=cz&units=metric&appid=${settings.apiKey}`, true);
+            loadWeather.open("GET",`https://api.openweathermap.org/data/2.5/weather?lat=${settings.location[0].latitude}&lon=${settings.location[0].longitude}&lang=cz&units=metric&appid=${settings.apiKey}`, true);
             break;
         };
         case "forecast": {
-            loadWeather.open("GET",`https://api.openweathermap.org/data/2.5/forecast?lat=${settings.location[0].latitude}&lon=${settings.location[0].longtitude}&lang=cz&units=metric&appid=${settings.apiKey}`, true);
+            loadWeather.open("GET",`https://api.openweathermap.org/data/2.5/forecast?lat=${settings.location[0].latitude}&lon=${settings.location[0].longitude}&lang=cz&units=metric&appid=${settings.apiKey}`, true);
             break;
         };
         default: return null;
@@ -399,8 +399,8 @@ screens.settings.manageLocations.coordinatesForm.addEventListener("submit", (e)=
             break;
         }
         if(i == e.target.elements.length-2){
-            if((e.target.latitude.value >= -90 && e.target.latitude.value <= 90) && (e.target.longtitude.value >= -180 && e.target.longtitude.value <= 180)){
-                settings.location.push(new addLocation(e.target.locationName.value, e.target.latitude.value, e.target.longtitude.value));
+            if((e.target.latitude.value >= -90 && e.target.latitude.value <= 90) && (e.target.longitude.value >= -180 && e.target.longitude.value <= 180)){
+                settings.location.push(new addLocation(e.target.locationName.value, e.target.latitude.value, e.target.longitude.value));
                 for(let k = 0; k <= e.target.elements.length-2; k++){
                     e.target[k].value = "";
                 };

@@ -1,7 +1,7 @@
-export let addLocation = function(locationName, latitude, longtitude){
+export let addLocation = function(locationName, latitude, longitude){
     this.locationName = locationName;
     this.latitude = latitude;
-    this.longtitude = longtitude;   
+    this.longitude = longitude;   
 }
 /*
 Parametry funkce searchLocations:

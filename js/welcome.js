@@ -73,7 +73,7 @@ nextButton.addEventListener("click", ()=>{
         };
         case 4: {
             let loc = settings.location;
-            if(loc[0] == undefined || loc[0].locationName == "" || loc[0].latitude == "" || loc[0].longtitude == "") {
+            if(loc[0] == undefined || loc[0].locationName == "" || loc[0].latitude == "" || loc[0].longitude == "") {
                 showDialog("Nebyla nastavena lokace", "Je nutné nastavit místo, pro které chcete zobrazovat počasí.");
                 step--;
             }else{
@@ -160,7 +160,7 @@ function refreshWizard(){
             wizardSteps[3].summary.innerHTML = `API klíč: <b>${settings.apiKey}</b><br>
             Název místa: <b>${settings.location[0].locationName}</b><br>
             Zeměpisná šířka: <b>${settings.location[0].latitude}˚ s. š.</b><br>
-            Zeměpisná délka: <b>${settings.location[0].longtitude}° v. d.</b>`
+            Zeměpisná délka: <b>${settings.location[0].longitude}° v. d.</b>`
             break;
         }
     };
