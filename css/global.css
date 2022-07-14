@@ -20,7 +20,7 @@ h1,h2,h3,h4,h5,h6 {
     text-align: center;
     font-weight: 300;
 }
-input, select {
+input[type=text], input[type=number], select {
     height: 30px;
     text-align: center;
     font-size: 15px;
@@ -46,7 +46,10 @@ button, input[type=submit] {
     background-color: rgba(0, 59, 114, 0.1);
     border: 1px solid #003b72;
     cursor: pointer;
-    transition: background-color 0s;
+}
+input[type=checkbox] {
+    height: 25px;
+    width: 25px;
 }
 button:hover, input[type=submit]:hover{
     background-color: rgba(0, 59, 114, 0.3);
