@@ -8,6 +8,7 @@ let settings = {
     apiKey: null,
     updateInterval: 300000,
     location: [],
+    autoLocation: false,
 };
 
 const wizardSteps = [
