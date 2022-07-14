@@ -105,6 +105,7 @@ const screens = {
         screen: document.querySelector("#settings"),
         apiInput: document.querySelector("#settingsInputAPI"),
         updateIntervalInput: document.querySelector("#settingsIntervalInput"),
+        autoLocationCheckbox: document.querySelector("#settingsAutoLocationCheckbox"),
         manageLocationsButton: document.querySelector("#manageLocationsButton"),
         saveButton: document.querySelector("#saveSettings"),
         resetButton: document.querySelector("#resetSettings"),
@@ -161,6 +162,7 @@ const screens = {
         loadSettings: function(){
             this.apiInput.value = settings.apiKey;
             this.updateIntervalInput.value = settings.updateInterval/1000;
+            this.autoLocationCheckbox.checked = settings.autoLocation;
         },
     },
     aboutApp: {
@@ -176,6 +178,7 @@ let weatherData = {
     currentWeather: null,
     forecast: null,
 };
+let autoLocationCoordinations;
 
 // Nabídka
 function setNavSelectedLocationText(){
@@ -207,7 +210,7 @@ function writeSavedLocationsToList(){
             let clickedLocation = settings.location[i];
             settings.location.splice(i, 1);
             settings.location.unshift(clickedLocation);
-            localStorage.setItem("settings", JSON.stringify(settings));
+            saveToLS();
             location.reload();
         })
     };  
@@ -290,27 +293,45 @@ navSelectedLocationDiv.addEventListener("click", ()=>{
     }
 })
 // Stažení informací o počasí
-loadAllWeatherData();
-setInterval(loadAllWeatherData,settings.updateInterval);
-function loadAllWeatherData(){
-    loadWeatherData("currentWeather");
-    loadWeatherData("forecast");
+if(settings.autoLocation){
+    getAutoLocation();
+    setInterval(getAutoLocation, settings.updateInterval)
+}else{
+    loadAllWeatherData("set");
+    setInterval(loadAllWeatherData,settings.updateInterval, "set");
+}
+
+
+function loadAllWeatherData(locationSource){
+    loadWeatherData("currentWeather", locationSource);
+    loadWeatherData("forecast", locationSource);
 };
 
 
-function loadWeatherData(type){
+function loadWeatherData(type, locationSource){
     let loadWeather = new XMLHttpRequest;
-    if(settings.location.length == 0){
-        showDialog("Nejsou nastavena žádná místa", "Pro zobrazení informací o počasí nejprve přidejte nějaké místo v nastavení.");
-        return;
+    let wokingCoordinates;
+    switch(locationSource){
+        case "set": {
+            if(settings.location.length == 0){
+                showDialog("Nejsou nastavena žádná místa", "Pro zobrazení informací o počasí nejprve přidejte nějaké místo v nastavení.");
+                return;
+            };
+            wokingCoordinates = settings.location[0];
+            break;
+        };
+        case "auto": {
+            wokingCoordinates = autoLocationCoordinations;
+            break;
+        }
     }
     switch(type){
         case "currentWeather": {
-            loadWeather.open("GET",`https://api.openweathermap.org/data/2.5/weather?lat=${settings.location[0].latitude}&lon=${settings.location[0].longitude}&lang=cz&units=metric&appid=${settings.apiKey}`, true);
+            loadWeather.open("GET",`https://api.openweathermap.org/data/2.5/weather?lat=${wokingCoordinates.latitude}&lon=${wokingCoordinates.longitude}&lang=cz&units=metric&appid=${settings.apiKey}`, true);
             break;
         };
         case "forecast": {
-            loadWeather.open("GET",`https://api.openweathermap.org/data/2.5/forecast?lat=${settings.location[0].latitude}&lon=${settings.location[0].longitude}&lang=cz&units=metric&appid=${settings.apiKey}`, true);
+            loadWeather.open("GET",`https://api.openweathermap.org/data/2.5/forecast?lat=${wokingCoordinates.latitude}&lon=${wokingCoordinates.longitude}&lang=cz&units=metric&appid=${settings.apiKey}`, true);
             break;
         };
         default: return null;
@@ -353,7 +374,8 @@ screens.settings.resetButton.addEventListener("click", ()=>{
 screens.settings.saveButton.addEventListener("click", ()=>{
     settings.apiKey = screens.settings.apiInput.value;
     settings.updateInterval = screens.settings.updateIntervalInput.value*1000;
-    localStorage.setItem("settings", JSON.stringify(settings));
+    settings.autoLocation = screens.settings.autoLocationCheckbox.checked;
+    saveToLS();
     showDialog("Nastavení uloženo", "Nastavení bylo uloženo. Pokud se některé změny neprojeví ihned, můžete zkusit obnovit stránku.")
 })
 
@@ -411,8 +433,50 @@ screens.settings.manageLocations.coordinatesForm.addEventListener("submit", (e)=
         };
     };
 });
-// Uložení změn do localStorage
+// Uložení změn
 screens.settings.manageLocations.saveButton.addEventListener("click", ()=>{
-    localStorage.setItem("settings", JSON.stringify(settings));
+    saveToLS();
     location.reload();
 })
+
+// Uložení nastavení do localStorage
+function saveToLS(){
+    localStorage.setItem("settings", JSON.stringify(settings));
+}
+
+// Automatická poloha
+screens.settings.autoLocationCheckbox.addEventListener("change", (e)=>{
+    if(e.target.checked == true){
+        getAutoLocation();
+    };
+})
+
+function getAutoLocation(){
+    if("geolocation" in navigator){
+        navigator.geolocation.getCurrentPosition(autoLocationSuccess, autoLocationError);
+    }else{
+        showDialog("Automatické určení lokace není dostupné", "Není možné určit polohu, protože Váš prohlížeč nebo zařízení tuto funkci nepodporuje.");
+        screens.settings.autoLocationCheckbox.checked = false;
+    }
+}
+function autoLocationSuccess(position){
+    autoLocationCoordinations = position.coords;
+    loadAllWeatherData("auto");
+}
+function autoLocationError(position){
+    switch(position.code){
+        case 1: {
+            showDialog("Nebyla udělěna potřebná oprávnění", "Aby bylo možné určit automaticky polohu, je nutné povolit aplikaci Metea potřebná oprávněná ve Vašem prohlížeči.");
+            break;
+        };
+        case 2: {
+            showDialog("Poloha není dostupná", "Nebylo možné určit polohu, protože některý ze zdrojů dat vrátil chybu.");
+            break;
+        };
+        case 3: {
+            showDialog("Čas na určení lokace vypršel", "Zjišťování Vaší lokace trvalo příliš dlouho, poloha proto nebyla určena.");
+            break;
+        };
+    };
+    screens.settings.autoLocationCheckbox.checked = false;
+}
