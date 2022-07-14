@@ -8,18 +8,17 @@ Metea je aplikace zobrazující informace o počasí z OpenWeatherMap.
 - Zobrazení informací o současném počasí
 - Předpověď počasí na následujících 5 dní po třech hodinách
 - Nastavitelný interval, po jehož uplynutí se počasí automaticky zaktualizuje
+- Umí zjistit polohu automaticky pomocí geolokačních služeb zařízení
 - Umí se přizpůsobit velikosti mobilu (je responzivní)
 - Lze použít jako PWA (progresivní webovou aplikaci)
-
-## Co je potřeba ještě dodělat?
-
-- Přeložit Meteu do i do jiných jazyků
 
 ## Požadavky na spuštění
 
 **Metea musí být pro správnou funkčnost umístěná na jakémkoliv webovém serveru. Při spuštění přímo ze správce souborů nemusí vše správně fungovat.**
 
 Budete potřebovat také svůj API klíč od OpenWeatherMap. K jeho získání se musíte [zaregistrovat](https://home.openweathermap.org/users/sign_up). Bude Vám stačit služba zdarma.
+
+Stabilní verze Metey stahujte ze [stránky „releases”](https://github.com/dmnix/Metea/releases). Repozitář je vývojovou verzí aplikace, která nemusí být stabilní a dokončená.
 
 ## Obrázky
 
